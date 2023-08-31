@@ -12,7 +12,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/', {
+      .get('http://localhost:5000/api', {
         headers: {
           Authorization: token,
         },

@@ -15,7 +15,7 @@ const Login = () => {
       password,
     };
     axios
-      .post('http://localhost:5000/login', authUser)
+      .post('http://localhost:5000/api/login', authUser)
       .then((res) => {
         if (res.status === 200) {
           setEmail('');

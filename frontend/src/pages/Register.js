@@ -15,7 +15,7 @@ const Register = () => {
       email,
       password,
     };
-    axios.post('http://localhost:5000/register', newUser).then((res) => {
+    axios.post('http://localhost:5000/api/register', newUser).then((res) => {
       if (res.status === 200) {
         setName('');
         setEmail('');
