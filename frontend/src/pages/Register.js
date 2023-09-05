@@ -6,6 +6,7 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [validateErrors, setValidateErros] = useState('');
   const navigate = useNavigate();
 
   const registerUser = (e) => {
@@ -15,14 +16,19 @@ const Register = () => {
       email,
       password,
     };
-    axios.post('http://localhost:5000/api/register', newUser).then((res) => {
-      if (res.status === 200) {
-        setName('');
-        setEmail('');
-        setPassword('');
-        navigate('/');
-      }
-    });
+    axios
+      .post('http://localhost:5000/api/register', newUser)
+      .then((res) => {
+        if (res.status === 200) {
+          setName('');
+          setEmail('');
+          setPassword('');
+          navigate('/');
+        }
+      })
+      .catch((err) => {
+        setValidateErros(err.response.data.errors);
+      });
   };
 
   return (
