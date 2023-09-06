@@ -5,10 +5,12 @@ const User = new Schema({
   name: {
     type: String,
     require: true,
+    unique: true,
   },
   email: {
     type: String,
     require: true,
+    unique: true,
   },
   passwordHash: {
     type: String,
@@ -20,6 +22,10 @@ const User = new Schema({
   },
   token: {
     type: String,
+  },
+  roles: {
+    type: [String],
+    default: 'USER',
   },
 });
 

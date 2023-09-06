@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('alex@gmail.com');
-  const [password, setPassword] = useState('123456');
+  const [password, setPassword] = useState('12345678');
+  const [errorsLogin, setErrorsLogin] = useState('');
 
   const navigate = useNavigate();
 
@@ -26,11 +27,15 @@ const Login = () => {
       })
       .then((res) => {
         localStorage.setItem('token', res.data.token);
+      })
+      .catch((errors) => {
+        setErrorsLogin(errors.response.data);
       });
   };
 
   return (
     <>
+      {errorsLogin && <h2>{errorsLogin.message}</h2>}
       <form onSubmit={login}>
         <label htmlFor='email'>
           Email:

@@ -19,16 +19,28 @@ const Register = () => {
     axios
       .post('http://localhost:5000/api/register', newUser)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === 201) {
           setName('');
           setEmail('');
           setPassword('');
+          window.localStorage.setItem('token', res.data.token);
           navigate('/');
         }
       })
       .catch((err) => {
+        console.log(err.response.data.errors);
         setValidateErros(err.response.data.errors);
       });
+  };
+
+  const printErrors = (field) => {
+    if (validateErrors) {
+      for (let i = 0; i < validateErrors.length; i++) {
+        if (validateErrors[i].path === field) {
+          return validateErrors[i].msg;
+        }
+      }
+    }
   };
 
   return (
@@ -44,6 +56,7 @@ const Register = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+          <span>{printErrors('name')}</span>
         </div>
         <div>
           <label htmlFor='email'>Email:</label>
@@ -54,6 +67,7 @@ const Register = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <span>{printErrors('email')}</span>
         </div>
         <div>
           <label htmlFor='password'>Пароль:</label>
@@ -64,6 +78,7 @@ const Register = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <span>{printErrors('password')}</span>
         </div>
         <button type='submit'>Отправить</button>
       </form>
